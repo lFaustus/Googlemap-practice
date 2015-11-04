@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="2a7e47da654546f9457deb6132364f1bf33a1857">
+        <dex dex="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\pre-dexed\debug\classes-535e6da33b639c65aa935f4a7d353a1da3b25dde.jar" />
+    </item>
+    <item
+        jar="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\libs\internal_impl-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\pre-dexed\debug\internal_impl-23.0.1-24dd9b6aaedcb64e9b2373c19cd9ab927e0c0c43.jar" />
+    </item>
+    <item
+        jar="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\exploded-aar\com.android.support\support-v13\23.0.1\jars\libs\internal_impl-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="a0c456a59e1edab84702b48a626705aa1d830ccc">
+        <dex dex="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\pre-dexed\debug\internal_impl-23.0.1-a1fad2529b04729b1e97db0e072f8e43572ce809.jar" />
+    </item>
+    <item
+        jar="E:\Flux\android-sdk-windows\android-sdk-windows\sdk\extras\android\m2repository\com\android\support\support-annotations\23.0.1\support-annotations-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\pre-dexed\debug\support-annotations-23.0.1-9654c5be26c98fed00c068c7ac8c6b5881094c0d.jar" />
+    </item>
+    <item
+        jar="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
+        <dex dex="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\pre-dexed\debug\classes-f67b6d846e07705caa30fad0aad675e5e3234e18.jar" />
+    </item>
+    <item
+        jar="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="39ae02ce40c3ac828abbf780ce0ff5d7a28b7d6a">
+        <dex dex="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\pre-dexed\debug\classes-ab90c547998ff816844459f6843ece81ccaad447.jar" />
+    </item>
+    <item
+        jar="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\exploded-aar\com.android.support\support-v13\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="8c046c952177602c858ed41c8fc492c939bde9aa">
+        <dex dex="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\pre-dexed\debug\classes-c93358462dbaf1e647357ef44efc61b9a07a3fc2.jar" />
+    </item>
+    <item
+        jar="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3aed37c38c56679602255dd72ef356da5d327cda">
+        <dex dex="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\pre-dexed\debug\classes-eb41f80880c196171ebcb1ed44f2e2208b13e389.jar" />
+    </item>
+    <item
+        jar="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="82825756edeeb3b56b15e73b2edd56e93da5a444">
+        <dex dex="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\pre-dexed\debug\classes-449923fdbbc26d709b6411b39c90616608a380ce.jar" />
+    </item>
+    <item
+        jar="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\pre-dexed\debug\classes-b821256b01eb23ff59abdb5078cbab55e6e38216.jar" />
+    </item>
+
+</items>
