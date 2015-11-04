@@ -74,13 +74,13 @@ public final class R {
 		public static final int powered_by_google_light = 0x7f02001b;
 	}
 	public static final class id {
-		public static final int adjust_height = 0x7f0a0000;
-		public static final int adjust_width = 0x7f0a0001;
-		public static final int hybrid = 0x7f0a0003;
-		public static final int none = 0x7f0a0002;
-		public static final int normal = 0x7f0a0004;
-		public static final int satellite = 0x7f0a0005;
-		public static final int terrain = 0x7f0a0006;
+		public static final int adjust_height = 0x7f0b0000;
+		public static final int adjust_width = 0x7f0b0001;
+		public static final int hybrid = 0x7f0b0003;
+		public static final int none = 0x7f0b0002;
+		public static final int normal = 0x7f0b0004;
+		public static final int satellite = 0x7f0b0005;
+		public static final int terrain = 0x7f0b0006;
 	}
 	public static final class integer {
 		public static final int google_play_services_version = 0x7f090000;
@@ -88,8 +88,8 @@ public final class R {
 	public static final class raw {
 	}
 	public static final class string {
-		public static final int auth_google_play_services_client_facebook_display_name = 0x7f05001f;
-		public static final int auth_google_play_services_client_google_display_name = 0x7f050020;
+		public static final int auth_google_play_services_client_facebook_display_name = 0x7f050020;
+		public static final int auth_google_play_services_client_google_display_name = 0x7f050021;
 		public static final int common_android_wear_notification_needs_update_text = 0x7f050000;
 		public static final int common_android_wear_update_text = 0x7f050001;
 		public static final int common_android_wear_update_title = 0x7f050002;
@@ -120,8 +120,8 @@ public final class R {
 		public static final int common_google_play_services_updating_text = 0x7f05001b;
 		public static final int common_google_play_services_updating_title = 0x7f05001c;
 		public static final int common_open_on_phone = 0x7f05001d;
-		public static final int common_signin_button_text = 0x7f050023;
-		public static final int common_signin_button_text_long = 0x7f050024;
+		public static final int common_signin_button_text = 0x7f050026;
+		public static final int common_signin_button_text_long = 0x7f050027;
 	}
 	public static final class style {
 	}

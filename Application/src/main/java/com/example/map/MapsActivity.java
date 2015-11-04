@@ -1,7 +1,6 @@
 package com.example.map;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -11,22 +10,23 @@ import com.example.google.playservices.placecomplete.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements LocationProvider.LocationCallback {
 
-
+    List<LatLng> latlnglist;
     public static final String TAG = MapsActivity.class.getSimpleName();
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
     private LocationProvider mLocationProvider;
+    private Marker trackingMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +91,8 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
     public void handleNewLocation(Location location) {
         Log.d(TAG, location.toString());
         mMap.clear();
-        List<LatLng> latlnglist = new ArrayList<>();
+
+         latlnglist = new ArrayList<>();
         double currentLatitude = location.getLatitude();
         double currentLongitude = location.getLongitude();
         LatLng latLng = new LatLng(currentLatitude, currentLongitude);
@@ -109,27 +110,28 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
                 .position(latLng)
                 .position(destinationLatLng);
 
-        mMap.addMarker(currentlocation);
+        trackingMarker = mMap.addMarker(currentlocation);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
         //mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
-        PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
+        /*PolylineOptions options = new PolylineOptions().width(5).color(Color.BLUE).geodesic(true);
         options.addAll(latlnglist);
-        mMap.addPolyline(options);
+        mMap.addPolyline(options);*/
         Marker marker,marker2;
         MarkerOptions currentlocationPin = new MarkerOptions()
                 .position(latLng)
                 .title("I am here");
-        marker = mMap.addMarker(currentlocationPin);
-        marker.setFlat(true);
-        marker.showInfoWindow();
+        mMap.addMarker(currentlocationPin);
+
         MarkerOptions destinationPin = new MarkerOptions()
                 .position(destinationLatLng)
                 .title("Destination - Distance: " + location.distanceTo(destinationLocation) / 1000 + " KM");
         marker2 = mMap.addMarker(destinationPin);
-        marker2.setFlat(true);
+
         marker2.showInfoWindow();
-        
+
+        startAnimation();
+
 
         /*MarkerOptions destination = new MarkerOptions()
                 .position(destinationLatLng)
@@ -149,4 +151,61 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
 
         return Math.acos(Math.sin(lat1Rad) * Math.sin(lat2Rad) + Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.cos(deltaLonRad)) * EARTH_RADIUS_KM;
     }
+    int currentPt;
+    private void startAnimation() {
+
+        mMap.animateCamera(
+                CameraUpdateFactory.newLatLngZoom(latlnglist.get(0), 16),
+                5000,
+                simpleAnimationCancelableCallback);
+
+        currentPt = 0-1;
+    }
+    GoogleMap.CancelableCallback simpleAnimationCancelableCallback =
+            new GoogleMap.CancelableCallback(){
+
+                @Override
+                public void onCancel() {
+                }
+
+                @Override
+                public void onFinish() {
+
+                    if(++currentPt < latlnglist.size()){
+
+//					double heading = SphericalUtil.computeHeading(googleMap.getCameraPosition().target, markers.get(currentPt).getPosition());
+//					System.out.println("Heading  = " + (float)heading);
+//					float targetBearing = bearingBetweenLatLngs(googleMap.getCameraPosition().target, markers.get(currentPt).getPosition());
+//					System.out.println("Bearing  = " + targetBearing);
+//
+                        LatLng targetLatLng = latlnglist.get(currentPt);
+
+                        CameraPosition cameraPosition =
+                                new CameraPosition.Builder()
+                                        .target(targetLatLng)
+                                        .tilt(currentPt<latlnglist.size()-1 ? 90 : 0)
+                                                //.bearing((float)heading)
+                                        .zoom(mMap.getCameraPosition().zoom)
+                                        .build();
+
+
+                        mMap.animateCamera(
+                                CameraUpdateFactory.newCameraPosition(cameraPosition),
+                                3000,
+                                simpleAnimationCancelableCallback);
+
+                       // highLightMarker(currentPt);
+
+                    }
+                }
+            };
+
+   /* private void highLightMarker(Marker marker) {
+        marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+        marker.showInfoWindow();
+        //Utils.bounceMarker(googleMap, marker);
+        this.selectedMarker=marker;
+    }*/
+
+
 }

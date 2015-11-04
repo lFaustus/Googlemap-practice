@@ -68,6 +68,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.map.MapsActivity" />
+        <activity android:name="com.example.map.MapsActivity2" />
     </application>
 
 </manifest>

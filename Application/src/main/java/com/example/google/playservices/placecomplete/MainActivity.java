@@ -16,7 +16,21 @@
 
 package com.example.google.playservices.placecomplete;
 
-import com.example.map.MapsActivity;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.net.Uri;
+import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.android.common.activities.SampleActivityBase;
+import com.example.android.common.logger.Log;
+import com.example.map.MapsActivity2;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -27,22 +41,6 @@ import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-
-import com.example.android.common.activities.SampleActivityBase;
-import com.example.android.common.logger.Log;
-
-import android.content.Intent;
-import android.content.res.Resources;
-import android.net.Uri;
-import android.os.Bundle;
-import android.text.Html;
-import android.text.Spanned;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends SampleActivityBase
         implements GoogleApiClient.OnConnectionFailedListener {
@@ -179,11 +177,11 @@ public class MainActivity extends SampleActivityBase
             Log.i(TAG, "Place details received: " + place.getName());
 
 
-            Intent mIntent = new Intent(MainActivity.this, MapsActivity.class);
+            Intent mIntent = new Intent(MainActivity.this, MapsActivity2.class);
             Bundle mBundle = new Bundle();
             mBundle.putDouble("Lat",place.getLatLng().latitude);
-            mBundle.putDouble("Lng",place.getLatLng().longitude);
-            mBundle.putString("Name",place.getName().toString());
+            mBundle.putDouble("Lng", place.getLatLng().longitude);
+            mBundle.putString("Name", place.getName().toString());
             mBundle.putString("Address",place.getAddress().toString());
             mIntent.putExtras(mBundle);
             places.release();

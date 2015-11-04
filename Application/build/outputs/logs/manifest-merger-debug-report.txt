@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from E:\Flux\android-play-places-master\PlaceComplete\Application\src\main\AndroidManifest.xml:18:1-68:12
+ADDED from E:\Flux\android-play-places-master\PlaceComplete\Application\src\main\AndroidManifest.xml:18:1-69:12
 	package
 		ADDED from E:\Flux\android-play-places-master\PlaceComplete\Application\src\main\AndroidManifest.xml:19:11-66
 	android:versionName
@@ -74,7 +74,7 @@ MERGED from [com.android.support:support-v4:23.0.1] E:\Flux\android-play-places-
 		INJECTED from E:\Flux\android-play-places-master\PlaceComplete\Application\src\main\AndroidManifest.xml
 		INJECTED from E:\Flux\android-play-places-master\PlaceComplete\Application\src\main\AndroidManifest.xml
 application
-ADDED from E:\Flux\android-play-places-master\PlaceComplete\Application\src\main\AndroidManifest.xml:39:5-65:19
+ADDED from E:\Flux\android-play-places-master\PlaceComplete\Application\src\main\AndroidManifest.xml:39:5-66:19
 MERGED from [com.android.support:support-v4:23.0.1] E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-v13:23.0.1] E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\exploded-aar\com.android.support\support-v13\23.0.1\AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-v4:23.0.1] E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\AndroidManifest.xml:22:5-20
@@ -127,5 +127,9 @@ activity#com.example.map.MapsActivity
 ADDED from E:\Flux\android-play-places-master\PlaceComplete\Application\src\main\AndroidManifest.xml:64:9-74
 	android:name
 		ADDED from E:\Flux\android-play-places-master\PlaceComplete\Application\src\main\AndroidManifest.xml:64:19-62
+activity#com.example.map.MapsActivity2
+ADDED from E:\Flux\android-play-places-master\PlaceComplete\Application\src\main\AndroidManifest.xml:65:9-75
+	android:name
+		ADDED from E:\Flux\android-play-places-master\PlaceComplete\Application\src\main\AndroidManifest.xml:65:19-63
 android:uses-permission#android.permission.READ_EXTERNAL_STORAGE
-IMPLIED from E:\Flux\android-play-places-master\PlaceComplete\Application\src\main\AndroidManifest.xml:18:1-68:12 reason: com.google.android.gms.maps requested WRITE_EXTERNAL_STORAGE
+IMPLIED from E:\Flux\android-play-places-master\PlaceComplete\Application\src\main\AndroidManifest.xml:18:1-69:12 reason: com.google.android.gms.maps requested WRITE_EXTERNAL_STORAGE
