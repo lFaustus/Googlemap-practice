@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -134,6 +135,7 @@ public class MapsActivity2 extends FragmentActivity implements LocationProvider.
         addMarkerToMap(new LatLng(location.getLatitude(),location.getLongitude()));
         addMarkerToMap(new LatLng(mIntent.getDoubleExtra("Lat", 0.0), mIntent.getDoubleExtra("Lng", 0.0)));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 15));
+        Log.e("location changed","location changed");
         //animator.startAnimation(true);
 
     }
@@ -205,12 +207,12 @@ public class MapsActivity2 extends FragmentActivity implements LocationProvider.
 
             CameraPosition cameraPosition =
                     new CameraPosition.Builder()
-                            .target(markerPos)
+                            .target(trackingMarker.getPosition())
                             .bearing(bearing + BEARING_OFFSET)
                             .tilt(90)
-                            .zoom(googleMap.getCameraPosition().zoom >=16 ? googleMap.getCameraPosition().zoom : 16)
+                            .zoom(googleMap.getCameraPosition().zoom >= 16 ? googleMap.getCameraPosition().zoom : 16)
                             .build();
-
+            //navigateToPoint(trackingMarker.getPosition(),0,cameraPosition.bearing,15,true);
             googleMap.animateCamera(
                     CameraUpdateFactory.newCameraPosition(cameraPosition),
                     ANIMATE_SPEEED_TURN,
@@ -246,10 +248,15 @@ public class MapsActivity2 extends FragmentActivity implements LocationProvider.
          * Add the marker to the polyline.
          */
         private void updatePolyLine(LatLng latLng) {
+
             List<LatLng> points = polyLine.getPoints();
+            /*LatLng p = new LatLng((((double) latLng.latitude / 1E5)),
+                    (((double) latLng.longitude / 1E5)));*/
             points.add(latLng);
             polyLine.setPoints(points);
+            polyLine.setGeodesic(true);
         }
+
 
 
         public void stopAnimation() {
@@ -277,9 +284,19 @@ public class MapsActivity2 extends FragmentActivity implements LocationProvider.
             LatLng newPosition = new LatLng(lat, lng);
 
             trackingMarker.setPosition(newPosition);
+            /*trackingMarker.setTitle("Estimated Time of Arrival");
+
+            trackingMarker.setSnippet(String.valueOf(TimeUnit.MILLISECONDS.toSeconds((long) t)));
+            trackingMarker.showInfoWindow();*/
 
             if (showPolyline) {
+                Log.e("showpolyline","showpolyline");
+              //  navigateToPoint(trackingMarker.getPosition(), 0, 0, 15, true);
                 updatePolyLine(newPosition);
+
+
+                //navigateToPoint(newPosition, true);
+
             }
 
             // It's not possible to move the marker + center it through a cameraposition update while another camerapostioning was already happening.
@@ -287,11 +304,13 @@ public class MapsActivity2 extends FragmentActivity implements LocationProvider.
             //navigateToPoint(newPosition,false);
 
             if (t< 1) {
+                Log.e("t<1","t<1");
                 mHandler.postDelayed(this, 16);
             } else {
 
                 System.out.println("Move to next marker.... current = " + currentIndex + " and size = " + markers.size());
                 // imagine 5 elements -  0|1|2|3|4 currentindex must be smaller than 4
+                //if (currentIndex<markers.size()-1) {
                 if (currentIndex<markers.size()-2) {
 
                     currentIndex++;
@@ -317,7 +336,7 @@ public class MapsActivity2 extends FragmentActivity implements LocationProvider.
                                     .zoom(googleMap.getCameraPosition().zoom)
                                     .build();
 
-
+                    //navigateToPoint(trackingMarker.getPosition(),0,cameraPosition.bearing,15,true);
                     googleMap.animateCamera(
                             CameraUpdateFactory.newCameraPosition(cameraPosition),
                             ANIMATE_SPEEED_TURN,
@@ -328,8 +347,12 @@ public class MapsActivity2 extends FragmentActivity implements LocationProvider.
                     mHandler.postDelayed(animator, 16);
 
                 } else {
+                    LatLng begin = getBeginLatLng();
+                    LatLng end = getEndLatLng();
+                    float bearingL = bearingBetweenLatLngs(begin, end);
                     currentIndex++;
                     highLightMarker(currentIndex);
+                    navigateToPoint(end,tilt,bearingL+BEARING_OFFSET,googleMap.getCameraPosition().zoom,false);
                     stopAnimation();
                 }
 
@@ -392,15 +415,50 @@ public class MapsActivity2 extends FragmentActivity implements LocationProvider.
     }
 
     private void changeCameraPosition(CameraPosition cameraPosition, boolean animate) {
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+       // CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(cameraPosition.target, 15);
+        final CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
 
         if (animate) {
-            googleMap.animateCamera(cameraUpdate);
+            googleMap.animateCamera(cameraUpdate,1500,null);
         } else {
             googleMap.moveCamera(cameraUpdate);
         }
 
     }
+    private List<LatLng> decodePoly(String encoded) {
+
+        List<LatLng> poly = new ArrayList<LatLng>();
+        int index = 0, len = encoded.length();
+        int lat = 0, lng = 0;
+
+        while (index < len) {
+            int b, shift = 0, result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lat += dlat;
+
+            shift = 0;
+            result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lng += dlng;
+
+            LatLng p = new LatLng((((double) lat / 1E5)),
+                    (((double) lng / 1E5)));
+            poly.add(p);
+        }
+
+        return poly;
+    }
+
 
     private Location convertLatLngToLocation(LatLng latLng) {
         Location loc = new Location("someLoc");
@@ -482,7 +540,8 @@ public class MapsActivity2 extends FragmentActivity implements LocationProvider.
 
         //Utils.bounceMarker(googleMap, marker);
 
-        this.selectedMarker=marker;
+        this.selectedMarker = marker;
+        navigateToPoint(selectedMarker.getPosition(),true);
     }
 
     private void resetMarkers() {
