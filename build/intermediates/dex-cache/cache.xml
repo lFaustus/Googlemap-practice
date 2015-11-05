@@ -2,6 +2,27 @@
 <items version="2" >
 
     <item
+        jar="E:\Flux\android-play-places-master\PlaceComplete\Application\libs\googledirectionandplacelibrary.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="161196849702b5b9bb7ca44604aa3b7ef78b9bd9">
+        <dex dex="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\pre-dexed\debug\googledirectionandplacelibrary-d3471b76483a7d3ebc50bfaf2dfe20c56c3e4e03.jar" />
+    </item>
+    <item
+        jar="E:\Flux\android-play-places-master\PlaceComplete\Application\libs\google-http-client-1.15.0-rc.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="a1c29595b27ca983388ee025c25737728779cc94">
+        <dex dex="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\pre-dexed\debug\google-http-client-1.15.0-rc-00dfa775bf44708d7bae5c8d34943c2f1a5bc2a8.jar" />
+    </item>
+    <item
+        jar="C:\Users\Fluxi\.gradle\caches\modules-2\files-2.1\com.mcxiaoke.volley\library\1.0.19\a8f23f65fc1e522ee4a1a697ee569901a46741fa\library-1.0.19.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="a8f23f65fc1e522ee4a1a697ee569901a46741fa">
+        <dex dex="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\pre-dexed\debug\library-1.0.19-d5acabe8ea7ed41728a9735453379211ef866f3b.jar" />
+    </item>
+    <item
         jar="E:\Flux\android-play-places-master\PlaceComplete\Application\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.1\jars\classes.jar"
         jumboMode="false"
         revision="23.0.1"

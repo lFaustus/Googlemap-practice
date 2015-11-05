@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="googledirectionandplacelibrary">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Application/libs/googledirectionandplacelibrary.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

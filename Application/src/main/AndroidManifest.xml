@@ -40,7 +40,8 @@
             android:allowBackup="true"
             android:label="@string/app_name"
             android:icon="@mipmap/ic_launcher"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:name="com.example.volley.MyApplication">
 
         <meta-data
                 android:name="com.google.android.geo.API_KEY"
