@@ -69,7 +69,7 @@ public class MapsActivity3 extends FragmentActivity implements LocationProvider.
                         .icon(BitmapDescriptorFactory.defaultMarker(
                                 BitmapDescriptorFactory.HUE_GREEN)));
 
-                googleMap.addMarker(new MarkerOptions().position(markers.get(markers.size()-1).getPosition())
+                googleMap.addMarker(new MarkerOptions().position(markers.get(markers.size() - 1).getPosition())
                         .icon(BitmapDescriptorFactory.defaultMarker(
                                 BitmapDescriptorFactory.HUE_GREEN)));
             }
@@ -117,13 +117,13 @@ public class MapsActivity3 extends FragmentActivity implements LocationProvider.
             //addDefaultLocations();
         } else*/ if (item.getItemId() == R.id.action_bar_start_animation) {
             googleDirection.request(markers.get(0).getPosition(),markers.get(markers.size()-1).getPosition(),GoogleDirection.MODE_BICYCLING);
-        } else if (item.getItemId() == R.id.action_bar_stop_animation) {
+        } /*else if (item.getItemId() == R.id.action_bar_stop_animation) {
             animator.stopAnimation();
         } else if (item.getItemId() == R.id.action_bar_clear_locations) {
             clearMarkers();
         } else if (item.getItemId() == R.id.action_bar_toggle_style) {;
             //toggleStyle();
-        }
+        }*/
         return true;
     }
 
@@ -166,8 +166,8 @@ public class MapsActivity3 extends FragmentActivity implements LocationProvider.
 
     public class Animator implements Runnable {
 
-        private static final int ANIMATE_SPEEED = 1500;
-        private static final int ANIMATE_SPEEED_TURN = 1000;
+        private static final int ANIMATE_SPEEED = 3000;
+        private static final int ANIMATE_SPEEED_TURN = 2500;
         private static final int BEARING_OFFSET = 20;
 
         private final Interpolator interpolator = new LinearInterpolator();
@@ -289,9 +289,9 @@ public class MapsActivity3 extends FragmentActivity implements LocationProvider.
         }
 
         public void startAnimation(boolean showPolyLine) {
-           // if (markers.size()>2) {
+            if (markers.size()>2) {
                 animator.initialize(showPolyLine);
-           // }
+            }
         }
 
 
@@ -372,12 +372,14 @@ public class MapsActivity3 extends FragmentActivity implements LocationProvider.
                     mHandler.postDelayed(animator, 16);
 
                 } else {
-                    LatLng begin = getBeginLatLng();
-                    LatLng end = getEndLatLng();
-                    float bearingL = bearingBetweenLatLngs(begin, end);
+                   // LatLng begin = getBeginLatLng();
+                    //LatLng end = getEndLatLng();
+                    //float bearingL = bearingBetweenLatLngs(begin, end);
                     currentIndex++;
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(trackingMarker.getPosition(), 15));
                     highLightMarker(currentIndex);
-                    navigateToPoint(end,tilt,bearingL+BEARING_OFFSET,googleMap.getCameraPosition().zoom,false);
+
+                    //navigateToPoint(end,tilt,bearingL+BEARING_OFFSET,googleMap.getCameraPosition().zoom,false);
                     stopAnimation();
                 }
 

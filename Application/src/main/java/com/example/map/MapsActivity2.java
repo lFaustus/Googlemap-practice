@@ -38,6 +38,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -56,7 +57,7 @@ public class MapsActivity2 extends FragmentActivity implements LocationProvider.
     private Marker selectedMarker;
     private Animator animator = new Animator();
     private static final String PLACES_DIRECTIONS = "http://maps.googleapis.com/maps/api/directions/json";
-    private Directions mDirections;
+    //private Directions mDirections;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,13 +113,13 @@ public class MapsActivity2 extends FragmentActivity implements LocationProvider.
             //addDefaultLocations();
         } else*/ if (item.getItemId() == R.id.action_bar_start_animation) {
             animator.startAnimation(true);
-        } else if (item.getItemId() == R.id.action_bar_stop_animation) {
+        } /*else if (item.getItemId() == R.id.action_bar_stop_animation) {
             animator.stopAnimation();
         } else if (item.getItemId() == R.id.action_bar_clear_locations) {
             clearMarkers();
         } else if (item.getItemId() == R.id.action_bar_toggle_style) {;
             //toggleStyle();
-        }
+        }*/
         return true;
     }
 
@@ -169,7 +170,7 @@ public class MapsActivity2 extends FragmentActivity implements LocationProvider.
         genericUrl.put("destination",destination.latitude+","+destination.longitude);
         genericUrl.put("sensor",false);
         genericUrl.put("mode", "driving");
-        genericUrl.put("alternatives", true);
+        genericUrl.put("alternatives", false);
         JsonObjectRequest mJSONOBjectRequest = new JsonObjectRequest(Request.Method.GET, genericUrl.toString(), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -189,10 +190,18 @@ public class MapsActivity2 extends FragmentActivity implements LocationProvider.
                         Log.e("legs array size",mLegsArray.length()+"");
                         final int size2 = mLegsArray.length();
                         JSONObject mObject2 = mLegsArray.getJSONObject(0);
+                                   //mArrival = mObject2.getJSONObject("arrival_time"),
+                                   //mDeparture = mObject2.getJSONObject("departure_time");
                         JSONArray mStepsArray = mObject2.getJSONArray("steps");
+
                         mDirection = new Directions();
                         String end_address = mObject2.getString("end_address"),
                                 start_address = mObject2.getString("start_address");
+                       // Long departure = mDeparture.getLong("value"),
+                           //     arrival = mArrival.getLong("value");
+                       // mDirection.setDeparture_time(departure);
+                       // mDirection.setArrivalTime(arrival);
+
                         JSONObject mOverviewPolylineObject = mObject.getJSONObject("overview_polyline");
                         mDirection.setOverviewPolyline(mOverviewPolylineObject.getString("points"));
                         mDirection.setEndAddress(end_address);
@@ -251,11 +260,11 @@ public class MapsActivity2 extends FragmentActivity implements LocationProvider.
                             }
                            // mDirections = mDirection;
                         }*/
-                        mDirections = mDirection;
+                       // mDirections = mDirection;
                         mDirectionsList.add(mDirection);
                     }
-                    for(int v = 0 ; v < mDirectionsList.size(); v ++)
-                        markers.addAll(decodePoly(mDirections.getOverview_polyline(),mDirections));
+                   // for(int v = 0 ; v < mDirectionsList.size(); v ++)
+                        markers.addAll(decodePoly(mDirectionsList));
 
 
                 } catch (JSONException e) {
@@ -284,6 +293,8 @@ public class MapsActivity2 extends FragmentActivity implements LocationProvider.
         private LatLng startLocation;
         private String overview_polyline;
         private String travel_mode;
+        private Long departure_time;
+        private Long arrival_time;
 
         Directions(){}
 
@@ -357,6 +368,22 @@ public class MapsActivity2 extends FragmentActivity implements LocationProvider.
 
         public String getTravel_mode() {
             return travel_mode;
+        }
+
+        public Long getDepartureTime() {
+            return departure_time;
+        }
+
+        public void setDeparture_time(Long DepartureTime) {
+            this.departure_time = departure_time;
+        }
+
+        public Long getArrivalTime() {
+            return arrival_time;
+        }
+
+        public void setArrivalTime(Long arrivaltime) {
+            this.arrival_time = arrivaltime;
         }
 
         @Override
@@ -634,53 +661,64 @@ public class MapsActivity2 extends FragmentActivity implements LocationProvider.
 
 
 
-    private List<Marker> decodePoly(String encoded,Directions mDirections) {
+    private List<Marker> decodePoly(List<Directions> mDirections) {
 
         List<Marker> poly = new ArrayList<Marker>();
-        int index = 0, len = encoded.length();
-        int lat = 0, lng = 0;
-        int counter = 0;
+        Iterator<Directions> directions = mDirections.iterator();
+        while(directions.hasNext()) {
+            Directions direct = directions.next();
+            int index = 0, len = direct.getOverview_polyline().length();
+            int lat = 0, lng = 0;
+            int counter = 0;
 
-        while (index < len) {
-            int b, shift = 0, result = 0;
-            do {
-                b = encoded.charAt(index++) - 63;
-                result |= (b & 0x1f) << shift;
-                shift += 5;
-            } while (b >= 0x20);
-            int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
-            lat += dlat;
+            while (index < len) {
+                int b, shift = 0, result = 0;
+                do {
+                    b = direct.getOverview_polyline().charAt(index++) - 63;
+                    result |= (b & 0x1f) << shift;
+                    shift += 5;
+                } while (b >= 0x20);
+                int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+                lat += dlat;
 
-            shift = 0;
-            result = 0;
-            do {
-                b = encoded.charAt(index++) - 63;
-                result |= (b & 0x1f) << shift;
-                shift += 5;
-            } while (b >= 0x20);
-            int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
-            lng += dlng;
+                shift = 0;
+                result = 0;
+                do {
+                    b = direct.getOverview_polyline().charAt(index++) - 63;
+                    result |= (b & 0x1f) << shift;
+                    shift += 5;
+                } while (b >= 0x20);
+                int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+                lng += dlng;
 
-            LatLng p = new LatLng((((double) lat / 1E5)),
-                    (((double) lng / 1E5)));
-            //googleMap.addMarker(new MarkerOptions().position(p).visible(false));
-            //poly.add(p);
-            Marker marker =googleMap.addMarker(new MarkerOptions().position(p));
-            if(counter == 0)
-            {
-               marker.setTitle("I'm Here");
-               marker.showInfoWindow();
+                LatLng p = new LatLng((((double) lat / 1E5)),
+                        (((double) lng / 1E5)));
+                //googleMap.addMarker(new MarkerOptions().position(p).visible(false));
+                //poly.add(p);
+                Marker marker = googleMap.addMarker(new MarkerOptions().position(p));
+                if (counter == 0) {
+                    marker.setTitle("I'm Here");
+                    marker.showInfoWindow();
+                } else
+                    marker.setVisible(false);
+
+                /*if(!directions.hasNext())
+                {
+                    marker.setVisible(true);
+                    marker.setTitle("Destination Distance: " + direct.getDistance());
+                    marker.setSnippet("Estimated Time Of Arrival: " + direct.getDuration());
+                    marker.showInfoWindow();
+                }*/
+                poly.add(marker);
+                counter++;
+
+
             }
-            else
-                marker.setVisible(false);
 
-
-            poly.add(marker);
-            counter ++;
         }
         poly.get(poly.size()-1).setVisible(true);
-        poly.get(poly.size()-1).setTitle("Destination Distance: " + mDirections.getDistance());
-        poly.get(poly.size()-1).setSnippet("Estimated Time Of Arrival: " + mDirections.getDuration());
+        poly.get(poly.size()-1).setTitle("Destination Distance: " + mDirections.get(0).getDistance());
+        poly.get(poly.size()-1).setSnippet("Estimated Time Of Arrival: " + mDirections.get(0).getDuration());
         poly.get(poly.size()-1).showInfoWindow();
 
        /* Marker m = poly.get(0);

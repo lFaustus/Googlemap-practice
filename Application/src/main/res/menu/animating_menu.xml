@@ -8,7 +8,7 @@
         app:showAsAction="ifRoom"
         android:title="@string/start_animation"/>			
 							
-		<item android:id="@+id/action_bar_stop_animation"
+		<!--item android:id="@+id/action_bar_stop_animation"
         app:showAsAction="ifRoom"
         android:title="@string/stop_animation"/>			
 		
@@ -22,6 +22,6 @@
         
 		<item android:id="@+id/action_bar_toggle_style"
         app:showAsAction="ifRoom"
-        android:title="@string/toggle_style"/>
+        android:title="@string/toggle_style"/-->
 		
 </menu>
